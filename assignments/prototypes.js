@@ -7,7 +7,32 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+  function GameObject (attributes) {
+    this.createdAt = attributes.createdAt,
+    this.name = attributes.name,
+    this.dimensions  = attributes.dimensions,
+    this.destroy = function () {
+      return `${this.name} was removed from the game`;
+    }
+  }
+
+  function CharacterStats (attributes) {
+    GameObject.call(this, attributes);
+    this.healthPoints = attributes.healthPoints,
+    this.takeDamage = function () {
+      return `${this.name} took damage`;
+    }
+  }
+
+  function Humanoid (attributes) {
+    CharacterStats.call(this, attributes);
+    this.team = attributes.team,
+    this.weapons = attributes.weapons,
+    this.language = attributes.language
+    this.greet = function() {
+      return `${this.name} offers a greeting in ${this.language}`;
+    }
+  }
 /*
   === GameObject ===
   * createdAt
@@ -41,7 +66,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +127,23 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function  Villain (attributes) {
+    Humanoid.call(this, attributes);
+    this.fight = function() {
+      return `${this.name} attacks for 3 damage`;
+    }
+  }
+
+  function Hero (attributes) {
+    Humanoid.call(this, attributes);
+    this.defend = function () {
+      return `${this.name} defends it's ${this.healthPoints} health points!`;
+    }
+  }
